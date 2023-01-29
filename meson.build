@@ -5,14 +5,13 @@ project(
     default_options: [
         'prefix=/usr',
         'c_std=c11',
-        'warning_level=1',
+        'warning_level=2',
     ],
     license: 'MIT',
     meson_version: '>= 0.58.0',
 )
 
 cc = meson.get_compiler('c')
-
 m_dep = cc.find_library('m')
 dl_dep = cc.find_library('dl', required : false)
 egl_dep = cc.find_library('EGL')
@@ -20,6 +19,15 @@ gst_codecs_deps = dependency('gstreamer-codecparsers-1.0', required: false)
 ffnvcodec_deps = dependency('ffnvcodec', version: '>= 11.1.5.1')
 libva_deps = dependency('libva', version: '>= 1.8.0')
 thread_dep = dependency('threads')
+
+if cc.get_argument_syntax() == 'gcc'
+    add_project_arguments(
+        cc.get_supported_arguments([
+            '-Wno-unused-parameter',
+        ]),
+        language: ['c'],
+    )
+endif
 
 sources = [
     'src/av1.c',
