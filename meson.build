@@ -31,6 +31,7 @@ if cc.get_argument_syntax() == 'gcc'
             '-Werror=int-conversion',
             '-Werror=missing-declarations',
             '-Werror=missing-prototypes',
+            '-Werror=pointer-arith',
             '-Werror=undef',
             '-Werror=vla',
             '-Wsuggest-attribute=format',
